@@ -37,6 +37,7 @@ const Home: NextPage = () => {
               }}
             />
             <Image
+              className="no-drag"
               src="/svg/rh-logo.svg"
               alt="RH Labs Logo"
               width={173}
