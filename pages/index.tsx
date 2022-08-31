@@ -1,86 +1,84 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import { motion, LayoutGroup } from "framer-motion";
+import { useState } from "react";
+import DockContainer, { DockElement } from "../components/Dock";
 
 const Home: NextPage = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-black bg-dotted-pattern">
       <Head>
-        <title>Create Next App</title>
+        <title>RH-Labs</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="rounded-md bg-gray-100 p-3 font-mono text-lg">
-            pages/index.tsx
-          </code>
-        </p>
-
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and its API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+      <motion.main
+        className="relative flex flex-col items-center justify-center flex-1 w-full gap-10 px-4 text-center"
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.8,
+          delay: 0.5,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
+      >
+        <div className="relative flex flex-col items-center justify-center w-full">
+          {/* Rotate Blurry Shadow */}
+          <motion.div drag="x" dragConstraints={{ left: -100, right: 100 }}>
+            <motion.div
+              className="absolute flex flex-col items-center justify-center rounded-full w-[200px] h-[200px] bg-[linear-gradient(180deg,#1fcee588_50%,#3c64ee88_50%)] blur-[35px]"
+              animate={{
+                rotate: [0, 180, 360, 180, 0],
+                scale: [1, 1.05, 1.2, 1.05, 1],
+                opacity: 1,
+              }}
+              transition={{
+                duration: 10,
+                ease: "linear",
+                repeat: Infinity,
+              }}
+            />
+            <Image
+              src="/svg/rh-logo.svg"
+              alt="RH Labs Logo"
+              width={173}
+              height={198}
+            />
+          </motion.div>
         </div>
-      </main>
-
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center gap-2"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        <motion.h1
+          className="z-10 text-5xl sm:text-6xl font-bold text-transparent bg-[linear-gradient(180deg,#1fcee5_33.33%,#3c64ee_80%)] bg-clip-text"
+          // whileHover={{ scale: 1.2 }}
+          // whileTap={{ scale: 1.1 }}
+          // transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
-          Powered by{' '}
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </a>
-      </footer>
+          RH Labs
+        </motion.h1>
+        <motion.p className="text-xl font-semibold text-white">
+          An interactive playground for my experiments.
+        </motion.p>
+        <motion.p className="text-lg font-normal text-white">
+          You will find any kind of project here. I only pretend to build in
+          public and explore my creativity <br /> Let's be curious and learn
+          together!
+        </motion.p>
+        <motion.button
+          className="w-full max-w-sm py-3 mx-4 font-semibold text-white transition-colors border border-white rounded-md bg-blue-500/20 hover:bg-blue-500/40"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Explore
+        </motion.button>
+        {/* <LayoutGroup id="dock-element">
+          <DockContainer>
+            <DockElement name="Home" />
+            <DockElement name="About" />
+            <DockElement name="Contact" />
+          </DockContainer>
+        </LayoutGroup> */}
+      </motion.main>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
