@@ -1,9 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { motion, LayoutGroup } from "framer-motion";
-import { useState } from "react";
-import DockContainer, { DockElement } from "../components/Dock";
+import { motion } from "framer-motion";
 
 const Home: NextPage = () => {
   return (
