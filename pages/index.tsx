@@ -2,8 +2,10 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
+  const router = useRouter();
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-black bg-dotted-pattern">
       <Head>
@@ -21,7 +23,6 @@ const Home: NextPage = () => {
         }}
       >
         <div className="relative flex flex-col items-center justify-center w-full">
-          {/* Rotate Blurry Shadow */}
           <motion.div drag="x" dragConstraints={{ left: -100, right: 100 }}>
             <motion.div
               className="absolute flex flex-col items-center justify-center rounded-full w-[200px] h-[200px] bg-[linear-gradient(180deg,#1fcee588_50%,#3c64ee88_50%)] blur-[35px]"
@@ -62,6 +63,7 @@ const Home: NextPage = () => {
           together!
         </motion.p>
         <motion.button
+          onClick={() => router.push("/manage-excel")}
           className="w-full max-w-sm py-3 mx-4 font-semibold text-white transition-colors border border-white rounded-md bg-blue-500/20 hover:bg-blue-500/40"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -74,7 +76,7 @@ const Home: NextPage = () => {
             <DockElement name="About" />
             <DockElement name="Contact" />
           </DockContainer>
-        </LayoutGroup> */}
+          </LayoutGroup> */}
       </motion.main>
     </div>
   );
