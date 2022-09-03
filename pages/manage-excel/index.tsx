@@ -13,18 +13,8 @@ export default function ManageExcel() {
   };
 
   const handleDownload = (parsedExcel: DataFrame) => {
-    const myModifiedExcel = toExcel(parsedExcel);
-    const blob = new Blob([myModifiedExcel], {
-      type: "application/vnd.ms-excel",
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "myExcel.xlsx";
-    a.click();
+    toExcel(parsedExcel);
   };
-
-  console.log({ parsedExcel: parsedExcel?.head(1) });
 
   // const excelAPI = new ExcelAPI({
   //   headers: ["name", "surname", "dni", "phone", "email"],
@@ -89,26 +79,29 @@ export default function ManageExcel() {
                 </tr>
               </thead>
               <tbody>
-                {parsedExcel.values.map((row, indexRow) => (
-                  <tr>
-                    {row.map((cell, indexCell) => (
-                      <td className="px-4 py-2">
-                        <input
-                          className="w-full px-2 py-1 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                          type="text"
-                          value={cell}
-                          onChange={(e) => {
-                            const newValues = parsedExcel.values.map((row) =>
-                              row.map((cell) => cell)
-                            );
-                            newValues[indexRow][indexCell] = e.target.value;
-                            setParsedExcel(new DataFrame(newValues));
-                          }}
-                        />
-                      </td>
-                    ))}
-                  </tr>
-                ))}
+                {parsedExcel.values.map((row, indexRow) => {
+                  console.log({ row });
+                  return (
+                    <tr>
+                      {(row as string[] | number[]).map((cell, indexCell) => (
+                        <td className="px-4 py-2">
+                          <input
+                            className="w-full px-2 py-1 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            type="text"
+                            value={cell}
+                            onChange={(e) => {
+                              const newValues = parsedExcel.values.map((row) =>
+                                (row as string[] | number[]).map((cell) => cell)
+                              );
+                              newValues[indexRow][indexCell] = e.target.value;
+                              setParsedExcel(new DataFrame(newValues));
+                            }}
+                          />
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </pre>
